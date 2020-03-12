@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: {{ .Release.Name }}-metrics-generator-{{ .Values.generator.service }}
-        image: abilioesteves/metrics-generator
+        image: {{ .Values.generator.image }}:{{ .Values.generator.tag }}
         env:
           - name: REGISTRY_ETCD_URL
             value: http://etcd.default.svc.cluster.local:2379

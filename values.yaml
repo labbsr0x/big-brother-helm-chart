@@ -3,9 +3,21 @@
 # Declare variables to be passed into your templates.
 
 generator:
+  image: labbsr0x/metrics-generator-tabajara
+  tag: latest
   service: example
   replicaCount: 2
   port: 32865
-  promsterPort: 9091
 
-etcd: true
+promster:
+  image: labbsr0x/bb-promster
+  tag: latest
+  port: 9090
+  level: 1
+  remoteUrl: "" 
+
+etcd:
+  image: quay.io/coreos/etcd
+  tag: latest 
+  port: 2379
+  deploy: true

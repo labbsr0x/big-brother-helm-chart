@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: {{ .Release.Name }}-bb-promster-{{ .Values.generator.service }}
-        image: labbsr0x/bb-promster:latest
+        image: {{ .Values.promster.image }}:{{ .Values.promster.tag }}
         env:
           - name: REGISTRY_ETCD_URL
             value: http://etcd.default.svc.cluster.local:2379
@@ -32,10 +32,12 @@ spec:
             value: http://etcd.default.svc.cluster.local:2379
           - name: SCRAPE_ETCD_PATH
             value: /services/{{ .Values.generator.service }} # based on how the examples are configured ($REGISTRY_ETCD_BASE/$REGISTRY_SERVICE)
-          # - name: REMOTE_WRITE_URL
-          #   value: http://nginx.default.svc.cluster.local/api/prom/push
+          {{- if .Values.promster.remoteUrl -}}
+          - name: REMOTE_WRITE_URL
+            value: {{ .Values.promster.remoteUrl }} #http://nginx.default.svc.cluster.local/api/prom/push
+          {{ end }}
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: {{ .Values.generator.promsterPort }}
+        - containerPort: {{ .Values.promster.port }}
       
     

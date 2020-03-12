@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "big-brother-test.fullname" . }}:{{ .Values.generator.promsterPort }}']
+      args: ['{{ include "big-brother-test.fullname" . }}:{{ .Values.promster.port }}']
   restartPolicy: Never

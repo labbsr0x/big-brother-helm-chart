@@ -1,11 +1,11 @@
-{{- if .Values.etcd -}}
+{{- if eq .Values.etcd.deploy true -}}
 apiVersion: v1
 kind: Service
 metadata:
   name: etcd
 spec:
   ports:
-    - port: 2379
+    - port: {{ .Values.etcd.port }}
   selector:
     name: etcd
 {{- end -}}
