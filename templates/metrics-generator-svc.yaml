@@ -1,0 +1,11 @@
+{{- range .Values.generators }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $.Release.Name }}-metrics-generator-svc-{{ .service }}
+spec:
+  ports:
+    - port: {{ .port }}
+  selector:
+    name: {{ $.Release.Name }}-metrics-generator-{{ .service }}
+{{- end }}

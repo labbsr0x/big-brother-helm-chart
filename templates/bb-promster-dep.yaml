@@ -1,0 +1,43 @@
+{{- range .Values.generators }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $.Release.Name }}-bb-promster-{{ .service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: {{ $.Release.Name }}-bb-promster-{{ .service }}
+  template:
+    metadata:
+      labels:
+        name: {{ $.Release.Name }}-bb-promster-{{ .service }}
+    spec:
+      containers:
+      - name: {{ $.Release.Name }}-bb-promster-{{ .service }}
+        image: labbsr0x/bb-promster:latest
+        env:
+          - name: REGISTRY_ETCD_URL
+            value: http://etcd.default.svc.cluster.local:2379
+          - name: REGISTRY_SERVICE
+            value: {{ .service }}
+          - name: REGISTRY_ETCD_BASE
+            value: /services 
+          - name: REGISTRY_SERVICE
+            value: {{ .service }}
+          - name: REGISTRY_ETCD_BASE
+            value: /services
+          - name: BB_PROMSTER_LEVEL
+            value: "1"
+          - name: ETCD_URLS
+            value: http://etcd.default.svc.cluster.local:2379
+          - name: SCRAPE_ETCD_PATH
+            value: /services/{{ .service }} # based on how the examples are configured ($REGISTRY_ETCD_BASE/$REGISTRY_SERVICE)
+          # - name: REMOTE_WRITE_URL
+          #   value: http://nginx.default.svc.cluster.local/api/prom/push
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: {{ .promsterPort }}
+{{- end }}
+      
+    
