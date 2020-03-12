@@ -1,2 +1,9 @@
-1. Get the application URL by running these commands:
+Info about this release:
+Release Name = {{ .Release.Name }}
+Release Namespace = {{ .Release.Namespace }}
+
+If you're using Big-Brother-Helm-Chart local, you can query Prometheus local to see the metrics
+that are created via the following command:
+  kubectl -n {{ .Release.Namespace }} port-forward $(kubectl -n {{ .Release.Namespace }} get pods -l "name={{ .Release.Name }}-bb-promster-{{ .Values.generator.service }}" -o jsonpath='{.items[0].metadata.name}') 9090:{{ .Values.promster.port }}
+
 

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-metrics-generator-{{ .Values.generator.service }}
 spec:
-  replicas: {{ .replicaCount }}
+  replicas: {{ .Values.generator.replicaCount }}
   selector:
     matchLabels:
       name: {{ .Release.Name }}-metrics-generator-{{ .Values.generator.service }}
