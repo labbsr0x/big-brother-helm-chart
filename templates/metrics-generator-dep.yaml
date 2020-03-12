@@ -1,31 +1,28 @@
-{{- range .Values.generators }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $.Release.Name }}-metrics-generator-{{ .service }}
+  name: {{ .Release.Name }}-metrics-generator-{{ .Values.generator.service }}
 spec:
   replicas: {{ .replicaCount }}
   selector:
     matchLabels:
-      name: {{ $.Release.Name }}-metrics-generator-{{ .service }}
+      name: {{ .Release.Name }}-metrics-generator-{{ .Values.generator.service }}
   template:
     metadata:
       labels:
-        name: {{ $.Release.Name }}-metrics-generator-{{ .service }}
+        name: {{ .Release.Name }}-metrics-generator-{{ .Values.generator.service }}
     spec:
       containers:
-      - name: {{ $.Release.Name }}-metrics-generator-{{ .service }}
+      - name: {{ .Release.Name }}-metrics-generator-{{ .Values.generator.service }}
         image: abilioesteves/metrics-generator
         env:
           - name: REGISTRY_ETCD_URL
             value: http://etcd.default.svc.cluster.local:2379
           - name: REGISTRY_SERVICE
-            value: {{ .service }}
+            value: {{ .Values.generator.service }}
           - name: REGISTRY_ETCD_BASE
             value: /services 
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: {{ .port }}
-{{- end }}
-      
+        - containerPort: {{ .Values.generator.port }}      
     

@@ -2,15 +2,10 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-generators:
-  - service: example-1
-    replicaCount: 1
-    port: 32865
-    promsterPort: 9090
-  - service: example-2
-    replicaCount: 2
-    port: 32866
-    promsterPort: 9091
+generator:
+  service: example
+  replicaCount: 2
+  port: 32865
+  promsterPort: 9091
 
-promster:
-  port: 9090
+etcd: true
