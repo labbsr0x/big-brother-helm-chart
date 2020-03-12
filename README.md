@@ -1,12 +1,12 @@
-# Big Brother Test
+# Big Brother Helm Chart
 
-Big Brother Test is a chart to create a test env for [Big Brother](https://github.com/labbsr0x/big-brother)
+Big Brother Helm Chart is a chart to create a test env for [Big Brother](https://github.com/labbsr0x/big-brother)
 
 ## TL;DR;
 
 ```console
 $ helm repo add  https://charts.bitnami.com/bitnami
-$ helm install my-release big-brother-test/
+$ helm install my-release big-brother-helm-chart/
 ```
 
 ## Introduction
@@ -24,10 +24,10 @@ This chart bootstraps a basic infra deployment on a [Kubernetes](http://kubernet
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm install my-release big-brother-test
+$ helm install my-release big-brother-helm-chart
 ```
 
-The command deploys big-brother-test on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
+The command deploys big-brother-helm-chart on the Kubernetes cluster in the default configuration. The [Parameters](#parameters) section lists the parameters that can be configured during installation.
 
 > **Tip**: List all releases using `helm list`
 
@@ -70,7 +70,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 ```console
 $ helm install my-release \
   --set generator.service="example-2",etcd.deploy=false \
-    big-brother-test
+    big-brother-helm-chart 
 ```
 
 The above command creates a generetor with REGISTRY_SERVICE env set to example-2 and not create etcd deployment.
