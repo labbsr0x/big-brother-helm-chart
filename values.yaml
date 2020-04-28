@@ -21,3 +21,9 @@ etcd:
   tag: latest 
   port: 2379
   deploy: true
+
+bot:
+  image: labbsr0x/bb-bot
+  tag: latest
+  port: 3000
+  deploy: false
