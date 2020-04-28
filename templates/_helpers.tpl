@@ -61,3 +61,36 @@ Create the name of the service account to use
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
+
+{{/* Generate basic resource */}}
+{{- define "bigbrotherhelm.resource" }}
+{{- if .resources }}
+resources:
+  {{- if .resources.requests }}
+  requests:
+    memory: {{ .resources.requests.memory | default "500Mi" | quote }}
+    cpu: {{ .resources.requests.cpu | default "300Mi" | quote }}
+  {{- else}}
+  requests:
+    memory: "500Mi"
+    cpu: "300Mi"
+  {{- end }}
+  {{- if .resources.limits }}
+  limits:
+    memory: {{ .resources.limits.memory | default "1000Mi" | quote }}
+    cpu: {{ .resources.limits.cpu | default "600m" | quote }}
+  {{- else}}
+  limits:
+    memory: "1000Mi"
+    cpu: "600m"
+  {{- end }}
+{{- else}}
+resources:
+  requests:
+    memory: "500Mi"
+    cpu: "300m"
+  limits:
+    memory: "1000Mi"
+    cpu: "600m"  
+{{- end }}
+{{- end }}

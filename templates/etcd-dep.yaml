@@ -16,11 +16,14 @@ spec:
       containers:
       - name: etcd
         image: {{ .Values.etcd.image }}:{{ .Values.etcd.tag }}
+        {{- include "bigbrotherhelm.resource" .Values.etcd | indent 8 }}
         env:
           - name: ETCD_LISTEN_CLIENT_URLS
             value: http://0.0.0.0:2379
           - name: ETCD_ADVERTISE_CLIENT_URLS
             value: http://etcd:2379
+          - name: ALLOW_NONE_AUTHENTICATION
+            value: 'yes'
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: {{ .Values.etcd.port }}

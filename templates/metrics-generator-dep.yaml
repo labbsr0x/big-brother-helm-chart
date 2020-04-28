@@ -15,9 +15,10 @@ spec:
       containers:
       - name: {{ .Release.Name }}-metrics-generator-{{ .Values.generator.service }}
         image: {{ .Values.generator.image }}:{{ .Values.generator.tag }}
+        {{- include "bigbrotherhelm.resource" .Values.generator | indent 8 }}
         env:
           - name: REGISTRY_ETCD_URL
-            value: http://etcd.default.svc.cluster.local:2379
+            value: http://etcd.{{ .Release.Namespace }}.svc.cluster.local:2379
           - name: REGISTRY_SERVICE
             value: {{ .Values.generator.service }}
           - name: REGISTRY_ETCD_BASE
