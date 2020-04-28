@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-bb-bot
 spec:
-  replicas: {{ .Values.generator.replicaCount }}
+  replicas: {{ .Values.bot.replicaCount | default "1" }}
   selector:
     matchLabels:
       name: {{ .Release.Name }}-bb-bot

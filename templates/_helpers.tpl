@@ -87,10 +87,10 @@ resources:
 {{- else}}
 resources:
   requests:
-    memory: "500Mi"
-    cpu: "300m"
+    memory: "200Mi"
+    cpu: "100m"
   limits:
-    memory: "1000Mi"
-    cpu: "600m"  
+    memory: "400Mi"
+    cpu: "300m"  
 {{- end }}
 {{- end }}
