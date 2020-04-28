@@ -1,0 +1,32 @@
+{{- if .Values.bot.deploy -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-bb-bot
+spec:
+  replicas: {{ .Values.generator.replicaCount }}
+  selector:
+    matchLabels:
+      name: {{ .Release.Name }}-bb-bot
+  template:
+    metadata:
+      labels:
+        name: {{ .Release.Name }}-bb-bot
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-bb-bot
+        image: {{ .Values.bot.image }}:{{ .Values.bot.tag }}
+        {{- include "bigbrotherhelm.resource" .Values.bot | indent 8 }}
+        env:
+          - name: ETCD_URLS
+            value: http://etcd.{{ .Release.Namespace }}.svc.cluster.local:2379
+          - name: LANGUAGE
+            value: {{ .Values.bot.language | default "en" }}
+          - name: TELEGRAM_TOKEN
+            value: {{ .Values.bot.telegram | default "asdf" }}
+          - name: DEBUG 
+            value: {{ .Values.bot.debug | default "*" | quote }} 
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: {{ .Values.bot.port | default "3000" }}
+{{- end -}}
