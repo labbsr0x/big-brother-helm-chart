@@ -33,7 +33,7 @@ spec:
             value: http://etcd.{{ .Release.Namespace }}.svc.cluster.local:2379
           - name: SCRAPE_ETCD_PATH
             value: /services/{{ .Values.generator.service }} # based on how the examples are configured ($REGISTRY_ETCD_BASE/$REGISTRY_SERVICE)
-          {{- if .Values.promster.remoteUrl -}}
+          {{- if .Values.promster.remoteUrl}}
           - name: REMOTE_WRITE_URL
             value: {{ .Values.promster.remoteUrl }} #http://nginx.default.svc.cluster.local/api/prom/push
           {{ end }}
