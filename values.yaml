@@ -5,6 +5,7 @@
 generator:
   image: labbsr0x/metrics-generator-tabajara
   tag: latest
+  deploy: true
   service: example
   replicaCount: 2
   port: 32865
@@ -12,6 +13,7 @@ generator:
 promster:
   image: labbsr0x/bb-promster
   tag: latest
+  deploy: true
   port: 9090
   level: 1
   remoteUrl: "" 
@@ -24,6 +26,12 @@ etcd:
 
 bot:
   image: labbsr0x/bb-bot
+  tag: latest
+  port: 3000
+  deploy: false
+
+grafana:
+  image: grafana/grafana
   tag: latest
   port: 3000
   deploy: false

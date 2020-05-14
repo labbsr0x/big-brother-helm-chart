@@ -1,0 +1,23 @@
+{{- if .Values.grafana.deploy -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-bb-grafana
+spec:
+  replicas: {{ .Values.grafana.replicaCount | default "1" }}
+  selector:
+    matchLabels:
+      name: {{ .Release.Name }}-bb-grafana
+  template:
+    metadata:
+      labels:
+        name: {{ .Release.Name }}-bb-grafana
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-bb-grafana
+        image: {{ .Values.grafana.image }}:{{ .Values.grafana.tag }}
+        {{- include "bigbrotherhelm.resource" .Values.grafana | indent 8 }}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: {{ .Values.bot.port | default "3000" }}
+{{- end -}}
