@@ -23,7 +23,7 @@ spec:
           - name: REGISTRY_SERVICE
             value: {{ .Values.generator.service }}
           - name: REGISTRY_ETCD_BASE
-            value: "/services"
+            value: /services
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: {{ .Values.generator.port }}      
